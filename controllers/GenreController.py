@@ -5,14 +5,6 @@ from flask_jwt_extended import create_access_token, jwt_required, get_jwt, get_j
 
 @jwt_required()
 def get_genres():
-    current_user = get_jwt_identity()  # Identity of the logged-in user
-    claims = get_jwt()  # Get all claims from the JWT token
-    role = claims.get("role")
-    
-    # Admin role validation
-    if role != 'admin':
-        return jsonify({"message": "Admin access required."}), 403
-
     genres = Genre.query.all()
     genre_list = []
     for genre in genres:
